@@ -209,7 +209,11 @@ public final class NativeSpotifyAuth {
         });
     }
 
-    public static long getExpiresAt(Context context) {\n        return prefs(context).getLong("expires_at", 0L);\n    }\n\n    public static String getAccessToken(Context context) {
+    public static long getExpiresAt(Context context) {
+        return prefs(context).getLong("expires_at", 0L);
+    }
+
+    public static String getAccessToken(Context context) {
         return prefs(context).getString("access_token", null);
     }
 
