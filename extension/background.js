@@ -26,7 +26,8 @@ async function forwardToVisualiser(message) {
   const tabs = await chrome.tabs.query({
     url: [
       "http://localhost/*",
-      "http://127.0.0.1/*"
+      "http://127.0.0.1/*",
+      "https://afterglow-pi-rouge.vercel.app/*"
     ]
   });
 

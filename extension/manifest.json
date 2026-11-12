@@ -11,7 +11,8 @@
   ],
   "host_permissions": [
     "http://localhost/*",
-    "http://127.0.0.1/*"
+    "http://127.0.0.1/*",
+    "https://afterglow-pi-rouge.vercel.app/*"
   ],
   "background": {
     "service_worker": "background.js"
@@ -23,9 +24,12 @@
     {
       "matches": [
         "http://localhost/*",
-        "http://127.0.0.1/*"
+        "http://127.0.0.1/*",
+        "https://afterglow-pi-rouge.vercel.app/*"
       ],
-      "js": ["visualiser-bridge.js"]
+      "js": [
+        "visualiser-bridge.js"
+      ]
     }
   ]
 }
