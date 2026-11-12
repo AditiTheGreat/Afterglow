@@ -10,6 +10,9 @@ const floatingLyrics = document.getElementById("floating-lyrics");
 const lyricsMode = document.getElementById("lyrics-mode");
 
 let lyrics = [];
+let activeTrackId = null;
+let lyricsRequestId = 0;
+const lyricsCache = new Map();
 let currentIndex = -1;
 
 function applyArtworkPalette(imageUrl) {
@@ -100,9 +103,18 @@ function updateTrackUI(track) {
 }
 
 async function fetchLyrics(track) {
+  const requestId = ++lyricsRequestId;
+  const trackKey = track.id || `${track.title}-${track.artist}`;
+
   lyrics = [];
   currentIndex = -1;
   renderLyrics();
+
+  if (lyricsCache.has(trackKey)) {
+    lyrics = lyricsCache.get(trackKey);
+    renderLyrics();
+    return;
+  }
 
   try {
     const params = new URLSearchParams({
@@ -119,30 +131,39 @@ async function fetchLyrics(track) {
     if (!response.ok) throw new Error("Lyrics not found");
 
     const data = await response.json();
+    const loadedLyrics = [];
 
     if (data.syncedLyrics) {
       const pattern = /\[(\d{2}):(\d{2}(?:\.\d{1,3})?)\](.*)/g;
 
       for (const match of data.syncedLyrics.matchAll(pattern)) {
-        const time =
-          (Number(match[1]) * 60 + Number(match[2])) * 1000;
-
-        lyrics.push({
-          time,
-          text: match[3].trim()
-        });
+        const time = (Number(match[1]) * 60 + Number(match[2])) * 1000;
+        loadedLyrics.push({ time, text: match[3].trim() });
       }
 
-      lyrics.sort((a, b) => a.time - b.time);
+      loadedLyrics.sort((a, b) => a.time - b.time);
     } else if (data.plainLyrics) {
-      lyrics = data.plainLyrics
-        .split("\n")
-        .filter(line => line.trim())
-        .map(text => ({ time: null, text }));
+      loadedLyrics.push(
+        ...data.plainLyrics
+          .split("\n")
+          .filter(line => line.trim())
+          .map(text => ({ time: null, text }))
+      );
     }
 
+    if (requestId !== lyricsRequestId) return;
+
+    lyricsCache.set(trackKey, loadedLyrics);
+
+    if (lyricsCache.size > 30) {
+      lyricsCache.delete(lyricsCache.keys().next().value);
+    }
+
+    lyrics = loadedLyrics;
     renderLyrics();
   } catch (error) {
+    if (requestId !== lyricsRequestId) return;
+
     console.warn("Afterglow lyrics:", error);
     if (lyricsPanel) {
       const current = lyricLines?.querySelector(".current");
@@ -150,7 +171,6 @@ async function fetchLyrics(track) {
     }
   }
 }
-
 function renderLyrics() {
   if (!lyricLines) return;
 
@@ -214,7 +234,11 @@ window.addEventListener("afterglow:track", event => {
   playback.updatedAt = Date.now();
   playback.isPlaying = Boolean(track.isPlaying);
 
-  fetchLyrics(track);
+  const trackId = track.id || `${track.title}-${track.artist}`;
+  if (trackId !== activeTrackId) {
+    activeTrackId = trackId;
+    fetchLyrics(track);
+  }
 });
 
 lyricsMode?.addEventListener("click", () => {

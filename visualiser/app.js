@@ -298,8 +298,18 @@ brightnessControl?.addEventListener("input", updateVisualBrightness);
 updateVisualBrightness();
 
 const fullscreenButton = document.getElementById("fullscreen");
+let nativeFullscreen = false;
 
 fullscreenButton.onclick = async () => {
+  if (window.AfterglowNative?.setFullscreen) {
+    nativeFullscreen = !nativeFullscreen;
+    window.AfterglowNative.setFullscreen(nativeFullscreen);
+    fullscreenButton.textContent = nativeFullscreen
+      ? "EXIT FULLSCREEN ↙"
+      : "ENTER FULLSCREEN ↗";
+    return;
+  }
+
   try {
     if (!document.fullscreenElement) {
       await document.documentElement.requestFullscreen();
@@ -312,10 +322,10 @@ fullscreenButton.onclick = async () => {
 };
 
 document.addEventListener("fullscreenchange", () => {
+  if (window.AfterglowNative?.setFullscreen) return;
+
   fullscreenButton.textContent = document.fullscreenElement
     ? "EXIT FULLSCREEN ↙"
     : "ENTER FULLSCREEN ↗";
-  window.AfterglowNative?.setFullscreen(Boolean(document.fullscreenElement));
 });
-
 requestAnimationFrame(animate);
