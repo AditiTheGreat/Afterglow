@@ -203,7 +203,7 @@ function renderLyrics() {
 function getEstimatedProgress() {
   if (!playback.isPlaying) return playback.progressMs;
 
-  return playback.progressMs + (performance.now() - playback.updatedAt) + 2000;
+  return playback.progressMs + (performance.now() - playback.updatedAt) + 1000;
 }
 
 function syncLyrics() {
