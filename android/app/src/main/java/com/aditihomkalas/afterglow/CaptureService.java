@@ -117,12 +117,12 @@ public class CaptureService extends Service {
         AudioFormat format = new AudioFormat.Builder()
             .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
             .setSampleRate(48000)
-            .setChannelMask(AudioFormat.CHANNEL_IN_MONO)
+            .setChannelMask(AudioFormat.CHANNEL_IN_STEREO)
             .build();
 
         int minBuffer = AudioRecord.getMinBufferSize(
             48000,
-            AudioFormat.CHANNEL_IN_MONO,
+            AudioFormat.CHANNEL_IN_STEREO,
             AudioFormat.ENCODING_PCM_16BIT
         );
 
@@ -130,7 +130,7 @@ public class CaptureService extends Service {
 
         recorder = new AudioRecord.Builder()
             .setAudioFormat(format)
-            .setBufferSizeInBytes(Math.max(minBuffer, 8192))
+            .setBufferSizeInBytes(Math.max(minBuffer, 16384))
             .setAudioPlaybackCaptureConfig(config)
             .build();
 
@@ -157,7 +157,7 @@ public class CaptureService extends Service {
         while (running && recorder != null) {
             int count;
             try {
-                count = recorder.read(samples, 0, samples.length, AudioRecord.READ_BLOCKING);
+                count = recorder.read(samples, 0, samples.length);
             } catch (Exception error) {
                 AudioState.status = "Read error: " + error.getMessage();
                 break;
