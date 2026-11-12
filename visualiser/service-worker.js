@@ -1,4 +1,4 @@
-const CACHE_NAME = "afterglow-v3";
+const CACHE_NAME = "afterglow-v4";
 const APP_FILES = [
   "/",
   "/index.html",
