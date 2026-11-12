@@ -116,6 +116,20 @@ public class MainActivity extends Activity {
         root.addView(start, buttonParams());
         start.setOnClickListener(v -> beginCapture());
 
+        Button visualizerTest = new Button(this);
+        visualizerTest.setText("TEST NATIVE VISUALIZER");
+        visualizerTest.setTextColor(Color.WHITE);
+        visualizerTest.setAllCaps(false);
+        visualizerTest.setBackgroundTintList(
+            android.content.res.ColorStateList.valueOf(Color.rgb(92, 48, 130))
+        );
+        LinearLayout.LayoutParams visualizerParams = buttonParams();
+        visualizerParams.topMargin = dp(12);
+        root.addView(visualizerTest, visualizerParams);
+        visualizerTest.setOnClickListener(v ->
+            startActivity(new Intent(this, VisualizerTestActivity.class))
+        );
+
         Button stop = new Button(this);
         stop.setText("STOP CAPTURE");
         stop.setTextColor(Color.rgb(225, 195, 245));

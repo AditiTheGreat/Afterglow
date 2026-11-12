@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
@@ -8,6 +9,9 @@
         android:allowBackup="false"
         android:label="AFTERGLOW Audio Test"
         android:theme="@style/AfterglowTheme">
+        <activity
+            android:name=".VisualizerTestActivity"
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
