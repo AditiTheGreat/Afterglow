@@ -1,0 +1,10 @@
+<resources>
+    <style name="AfterglowTheme" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:colorAccent">#D9A6FF</item>
+        <item name="android:statusBarColor">#080610</item>
+        <item name="android:navigationBarColor">#080610</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowBackground">#080610</item>
+    </style>
+</resources>
