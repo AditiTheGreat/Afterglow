@@ -305,6 +305,7 @@ document.addEventListener("fullscreenchange", () => {
   fullscreenButton.textContent = document.fullscreenElement
     ? "EXIT FULLSCREEN ↙"
     : "ENTER FULLSCREEN ↗";
+  window.AfterglowNative?.setFullscreen(Boolean(document.fullscreenElement));
 });
 
 requestAnimationFrame(animate);

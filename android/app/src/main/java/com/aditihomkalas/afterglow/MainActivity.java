@@ -8,6 +8,9 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.*;
 import android.view.Gravity;
+import android.view.View;
+import android.view.WindowInsets;
+import android.view.WindowInsetsController;
 import android.webkit.*;
 import android.widget.*;
 
@@ -24,6 +27,44 @@ public class MainActivity extends Activity {
     private Button visualizerButton;
     private WebView webView;
     private boolean receiverRegistered = false;
+
+    private class FullscreenBridge {
+        @JavascriptInterface
+        public void setFullscreen(boolean enabled) {
+            runOnUiThread(() -> setImmersiveMode(enabled));
+        }
+    }
+
+    private void setImmersiveMode(boolean enabled) {
+        if (Build.VERSION.SDK_INT >= 30) {
+            WindowInsetsController controller = getWindow().getInsetsController();
+            if (controller == null) return;
+
+            if (enabled) {
+                controller.hide(
+                    WindowInsets.Type.statusBars() |
+                    WindowInsets.Type.navigationBars()
+                );
+                controller.setSystemBarsBehavior(
+                    WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                );
+            } else {
+                controller.show(
+                    WindowInsets.Type.statusBars() |
+                    WindowInsets.Type.navigationBars()
+                );
+            }
+        } else {
+            int flags = enabled
+                ? View.SYSTEM_UI_FLAG_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                : View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+
+            getWindow().getDecorView().setSystemUiVisibility(flags);
+        }
+    }
 
     private final BroadcastReceiver audioReceiver = new BroadcastReceiver() {
         @Override
@@ -254,6 +295,7 @@ public class MainActivity extends Activity {
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
         settings.setMediaPlaybackRequiresUserGesture(false);
+        webView.addJavascriptInterface(new FullscreenBridge(), "AfterglowNative");
 
         webView.setWebViewClient(new WebViewClient() {
             @Override
