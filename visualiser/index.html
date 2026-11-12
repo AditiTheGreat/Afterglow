@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFTERGLOW</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="minimal.css">
+</head>
+<body>
+<div id="album-backdrop"></div>
+<div id="album-art-wrap">
+  <img id="album-art" alt="Album artwork">
+</div>
+  <canvas id="visualizer"></canvas>
+
+  <div class="vignette"></div>
+
+  <header>
+    <div class="brand">AFTERGLOW<span>®</span></div>
+    <div class="header-right" id="connection-stack">
+      <div class="live"><i></i><span id="connection">WAITING FOR AUDIO</span></div>
+    </div>
+  </header>
+
+  <main>
+    <div class="orb-wrap">
+      <div class="orb-glow"></div>
+      <div class="orb" id="orb">
+        <div class="orb-core"></div>
+        <div class="orb-ring ring-one"></div>
+        <div class="orb-ring ring-two"></div>
+      </div>
+      <div class="orb-label">FEEL THE FREQUENCY</div>
+    </div>
+
+    <div class="track">
+      <div class="eyebrow" aria-hidden="true">&nbsp;</div>
+      <h1 id="track-title">Lost in the sound.</h1>
+      <p id="track-artist">Let the music take over.</p>
+    </div>
+  </main>
+
+<section id="lyrics-panel">
+  <div class="lyrics-heading">
+    <span>NOW FEELING</span>
+    <button id="lyrics-mode">FLOATING MODE ↗</button>
+  </div>
+
+  <div id="lyrics-lines">
+    <p class="lyric-line previous"></p>
+    <p class="lyric-line current">Waiting for the music...</p>
+    <p class="lyric-line next"></p>
+  </div>
+</section>
+
+<div id="floating-lyrics"></div>
+
+  <section class="equalizer" id="equalizer"></section>
+
+  <footer>
+    
+    <button id="fullscreen">ENTER FULLSCREEN ↗</button>
+
+    <div id="playback-controls">
+      <button id="previous-track" title="Previous track" aria-label="Previous track">‹‹</button>
+      <button id="play-toggle" title="Play Spotify" aria-label="Play Spotify">▶</button>
+      <button id="next-track" title="Next track" aria-label="Next track">››</button>
+
+      <label class="control-range">
+        <span>VOL</span>
+        <input id="volume-control" type="range" min="0" max="150" value="100">
+      </label>
+
+      <label class="control-range">
+        <span>BRI</span>
+        <input id="brightness-control" type="range" min="50" max="150" value="100">
+      </label>
+    </div>
+
+    <span id="audio-level">BASS 00 · MID 00 · HIGH 00</span>
+  </footer>
+
+<script src="config.js"></script>
+<script src="lyrics.js"></script>
+<script src="spotify.js"></script>
+<script src="app.js"></script>
+  <script src="minimal.js"></script>
+</body>
+</html>

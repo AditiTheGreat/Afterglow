@@ -1,0 +1,661 @@
+
+/* ===================================
+   AFTERGLOW — MINIMAL EDITION
+=================================== */
+
+:root {
+  --beat-glow: 0;
+}
+
+html, body {
+  background: #08070d !important;
+  overflow-x: hidden;
+}
+
+body {
+  position: relative;
+  color: #f5efff;
+}
+
+/* Clean ambient beat lighting */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -15%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--beat-glow);
+  background:
+    radial-gradient(ellipse at 50% 48%,
+      rgba(190, 120, 255, .95) 0%,
+      rgba(130, 65, 210, .48) 25%,
+      rgba(75, 35, 125, .2) 48%,
+      transparent 72%);
+  filter: blur(35px);
+  transform: scale(calc(1 + var(--beat-glow) * .12));
+}
+
+/* Remove the old visual machinery */
+.orb-wrap,
+.orb,
+.orb-core,
+.orb-glow,
+.orb-ring,
+.orb-label,
+#visualizer {
+  display: none !important;
+}
+
+/* No shaking. Anywhere. */
+header,
+main,
+footer,
+button,
+.equalizer,
+#lyrics-panel,
+#album-art-wrap,
+#lyrics-lines {
+  transform: none !important;
+  translate: none !important;
+  animation: none;
+}
+
+/* Minimal centred composition */
+main {
+  width: 100% !important;
+  height: calc(100vh - 170px) !important;
+  min-height: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 auto !important;
+}
+
+.track {
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  transform: none !important;
+  width: min(360px, 85vw) !important;
+  min-width: 0;
+  padding: 20px !important;
+  text-align: center;
+  z-index: 5;
+}
+
+#album-art-wrap {
+  width: min(210px, 48vw) !important;
+  margin: 25px auto !important;
+}
+
+#album-art {
+  border-radius: 12px !important;
+  box-shadow: 0 15px 55px rgba(0,0,0,.55) !important;
+}
+
+#track-title {
+  font-size: clamp(25px, 4vw, 38px) !important;
+  letter-spacing: -.8px;
+}
+
+#track-artist {
+  opacity: .65;
+}
+
+/* Subtle lyrics */
+#lyrics-panel {
+  z-index: 6;
+}
+
+#floating-lyrics {
+  z-index: 7;
+}
+
+/* Quiet equalizer */
+.equalizer {
+  opacity: .65;
+  filter: saturate(.65);
+}
+
+/* Remove the old flash overlay */
+body::after {
+  display: none !important;
+}
+
+/* Keep controls clean */
+button {
+  transition: opacity .2s ease;
+}
+
+button:hover {
+  opacity: .7;
+}
+
+@media (max-width: 760px) {
+  main {
+    height: auto !important;
+    min-height: calc(100vh - 180px) !important;
+  }
+
+  .track {
+    width: 90vw !important;
+  }
+}
+
+
+/* CENTRAL VISUALISER — LOWER POSITION */
+.equalizer {
+  position: fixed !important;
+  left: 50% !important;
+  top: 62% !important;
+  bottom: auto !important;
+  width: min(75vw, 760px) !important;
+  transform: translate(-50%, -50%) !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  z-index: 5 !important;
+}
+
+/* ALBUM COVER LOWER */
+#album-art-wrap {
+  margin-top: 48px !important;
+}
+
+/* STRONGER BEAT BLOOM */
+body::before {
+  inset: -20% !important;
+  background:
+    radial-gradient(
+      circle at 50% 62%,
+      rgba(190, 115, 255, .95),
+      rgba(130, 65, 220, .48) 28%,
+      rgba(75, 35, 125, .18) 52%,
+      transparent 75%
+    ) !important;
+  filter: blur(28px) !important;
+  opacity: calc(var(--beat-glow) * 1.4) !important;
+}
+
+@media (max-width: 760px) {
+  .equalizer {
+    top: 65% !important;
+    width: 85vw !important;
+  }
+
+  #album-art-wrap {
+    margin-top: 35px !important;
+  }
+}
+
+
+/* Hide technical audio statistics */
+#audio-level,
+.audio-level,
+.frequency-details,
+.audio-stats {
+  display: none !important;
+}
+
+
+/* Album artwork — lower placement */
+#album-art-wrap {
+  margin-top: 85px !important;
+  transform: translateY(20px) !important;
+}
+
+
+/* FORCE album artwork lower */
+#album-art-wrap {
+  position: relative !important;
+  top: 55px !important;
+  margin-top: 0 !important;
+  transform: none !important;
+  translate: none !important;
+}
+
+
+/* FINAL ALBUM COVER POSITION */
+#album-art-wrap #album-art {
+  position: relative !important;
+  top: 55px !important;
+  transform: translateY(0) !important;
+}
+
+
+
+/* ===================================
+   AFTERGLOW — CLEAN HEADER
+=================================== */
+
+header {
+  position: relative !important;
+  z-index: 100 !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  height: 90px !important;
+  padding: 12px clamp(12px, 4vw, 48px) !important;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 10px !important;
+  border-bottom: 1px solid rgba(255,255,255,.055);
+}
+
+.brand {
+  flex: 0 1 auto !important;
+  white-space: nowrap !important;
+  font-size: clamp(12px, 2vw, 16px) !important;
+  letter-spacing: clamp(2px, .5vw, 6px) !important;
+}
+
+.header-right {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  min-width: 0 !important;
+  max-width: 60% !important;
+}
+
+#spotify-connect.spotify-status {
+  position: static !important;
+  display: block !important;
+  width: auto !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 6px 10px !important;
+  border: 1px solid rgba(201,165,245,.45) !important;
+  border-radius: 20px !important;
+  background: rgba(33,23,47,.8) !important;
+  color: #f5eaff !important;
+  font: 8px 'DM Mono', monospace !important;
+  letter-spacing: 1px !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+}
+
+.header-right .live {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 7px !important;
+  font-size: 8px !important;
+  letter-spacing: 1px !important;
+  white-space: nowrap !important;
+}
+
+.header-right .live i {
+  flex: 0 0 6px !important;
+  width: 6px !important;
+  height: 6px !important;
+}
+
+@media (max-width: 420px) {
+  header {
+    height: 76px !important;
+    padding: 8px 10px !important;
+    gap: 5px !important;
+  }
+
+  .header-right {
+    gap: 5px !important;
+    max-width: 62% !important;
+  }
+
+  #spotify-connect.spotify-status {
+    padding: 5px 7px !important;
+    font-size: 7px !important;
+    letter-spacing: .5px !important;
+  }
+
+  .header-right .live {
+    font-size: 7px !important;
+    letter-spacing: .5px !important;
+    gap: 5px !important;
+  }
+}
+
+/* Header closer to screen corners */
+header {
+  padding-left: 28px !important;
+  padding-right: 28px !important;
+}
+
+@media (max-width: 600px) {
+  header {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+}
+
+/* Pin header content to opposite top corners */
+header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 22px 24px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  z-index: 1000 !important;
+}
+
+header .brand {
+  margin: 0 !important;
+  text-align: left !important;
+}
+
+#connection-stack {
+  margin-left: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  gap: 9px !important;
+  text-align: right !important;
+}
+
+#connection-stack #spotify-connect,
+#connection-stack .live {
+  position: static !important;
+  margin: 0 !important;
+  text-align: right !important;
+}
+
+@media (max-width: 420px) {
+  header {
+    padding: 16px 12px !important;
+  }
+}
+
+
+/* =========================================
+   AFTERGLOW — ALBUM COLOUR + BEAT ATMOSPHERE
+   Visual effects only. Layout remains untouched.
+========================================= */
+
+:root {
+  --cover-rgb: 165, 110, 220;
+  --beat-glow: 0.1;
+}
+
+/* Let the album's colour shape the ambient atmosphere */
+body::before {
+  background:
+    radial-gradient(
+      ellipse at 50% 48%,
+      rgba(var(--cover-rgb), 0.34),
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse at 18% 82%,
+      rgba(var(--cover-rgb), 0.20),
+      transparent 48%
+    ),
+    radial-gradient(
+      ellipse at 85% 25%,
+      rgba(var(--cover-rgb), 0.16),
+      transparent 45%
+    ) !important;
+  opacity: calc(0.22 + var(--beat-glow) * 0.65) !important;
+  transition: background 1.4s ease, opacity 0.12s ease !important;
+}
+
+/* Colour bloom over the existing blurred album artwork */
+#album-backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at 50% 55%,
+      rgba(var(--cover-rgb), 0.42),
+      transparent 68%
+    );
+  opacity: calc(0.16 + var(--beat-glow) * 0.48);
+  transition: opacity 0.12s ease, background 1.4s ease;
+}
+
+
+/* AFTERGLOW — smooth artwork colour interpolation */
+@property --cover-rgb {
+  syntax: "<number>#";
+  inherits: true;
+  initial-value: 165, 110, 220;
+}
+
+:root {
+  transition: --cover-rgb 1.8s cubic-bezier(.22, 1, .36, 1);
+  --visual-brightness: 1;
+}
+
+body::before {
+  filter: blur(28px) brightness(var(--visual-brightness, 1)) !important;
+}
+
+#album-backdrop {
+  filter: blur(85px) brightness(calc(.3 * var(--visual-brightness, 1))) !important;
+}
+
+/* Compact controls in the existing footer */
+#playback-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+#playback-controls button {
+  min-width: 29px;
+  height: 27px;
+  padding: 3px 6px;
+  border: 1px solid rgba(217,184,255,.35);
+  border-radius: 18px;
+  background: rgba(33,23,47,.55);
+  color: #f2e5ff;
+  font: 12px 'DM Mono', monospace;
+  cursor: pointer;
+  transition: background .2s ease, box-shadow .2s ease;
+}
+
+#playback-controls button:hover {
+  background: rgba(160,105,220,.3);
+  box-shadow: 0 0 12px rgba(190,130,255,.25);
+}
+
+#playback-controls .control-range {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #cdb7e5;
+  font: 8px 'DM Mono', monospace;
+  letter-spacing: 1px;
+}
+
+#playback-controls input[type="range"] {
+  width: 65px;
+  height: 3px;
+  accent-color: #c99aff;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  #playback-controls {
+    gap: 4px;
+  }
+
+  #playback-controls button {
+    min-width: 25px;
+    height: 25px;
+    padding: 2px 4px;
+  }
+
+  #playback-controls .control-range {
+    gap: 3px;
+    font-size: 7px;
+  }
+
+  #playback-controls input[type="range"] {
+    width: 43px;
+  }
+}
+
+
+/* AFTERGLOW — beat-driven DJ lighting */
+:root {
+  --visual-brightness: 1.3;
+}
+
+body::before {
+  opacity: calc(0.28 + var(--beat-glow, 0.1) * 0.72) !important;
+  filter: blur(28px) brightness(calc(1.2 + var(--beat-glow, 0.1) * 2.2)) !important;
+  transition: opacity 0.05s linear, filter 0.05s linear !important;
+}
+
+#album-backdrop::after {
+  opacity: calc(0.22 + var(--beat-glow, 0.1) * 0.85) !important;
+  transition: opacity 0.06s linear !important;
+}
+
+
+/* AFTERGLOW — IMPACT FLASH V2 */
+/* Visual effects only. No layout changes. */
+
+body::before {
+  background:
+    radial-gradient(
+      ellipse at 50% 48%,
+      rgba(var(--cover-rgb), calc(0.35 + var(--beat-flash, 0) * 0.65)),
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse at 18% 82%,
+      rgba(170, 65, 255, calc(0.12 + var(--beat-flash, 0) * 0.48)),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 85% 25%,
+      rgba(255, 65, 190, calc(0.10 + var(--beat-flash, 0) * 0.42)),
+      transparent 52%
+    ) !important;
+  opacity: calc(0.24 + var(--beat-flash, 0) * 0.76) !important;
+  filter: blur(28px) brightness(calc(1.2 + var(--beat-flash, 0) * 3.2)) saturate(1.8) !important;
+  transition: none !important;
+}
+
+#album-backdrop::after {
+  background:
+    radial-gradient(
+      ellipse at 50% 55%,
+      rgba(var(--cover-rgb), calc(0.30 + var(--beat-flash, 0) * 0.70)),
+      transparent 70%
+    ) !important;
+  opacity: calc(0.18 + var(--beat-flash, 0) * 0.82) !important;
+  transition: none !important;
+}
+
+#album-art {
+  filter:
+    brightness(calc(1 + var(--beat-flash, 0) * 0.75))
+    saturate(calc(1 + var(--beat-flash, 0) * 0.8)) !important;
+  transition: filter 0.04s linear !important;
+}
+
+
+/* AFTERGLOW — BRIGHT IMPACT V3 */
+/* Beat-synchronised high-intensity visual effects only. */
+
+body::before {
+  opacity: calc(0.35 + var(--beat-flash, 0) * 0.65) !important;
+  filter:
+    blur(16px)
+    brightness(calc(1.5 + var(--beat-flash, 0) * 7))
+    saturate(2.5) !important;
+  transition: none !important;
+}
+
+#album-backdrop::after {
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 255, 255, calc(var(--beat-flash, 0) * 0.72)),
+      rgba(var(--cover-rgb), calc(var(--beat-flash, 0) * 0.55)) 38%,
+      transparent 75%
+    ) !important;
+  opacity: 1 !important;
+  mix-blend-mode: screen !important;
+  transition: none !important;
+}
+
+#album-art {
+  filter:
+    brightness(calc(1 + var(--beat-flash, 0) * 1.2))
+    saturate(calc(1 + var(--beat-flash, 0) * 1.5))
+    contrast(calc(1 + var(--beat-flash, 0) * 0.35)) !important;
+  transition: filter 0.03s linear !important;
+}
+
+
+/* AFTERGLOW — BACKGROUND BLAST V4 */
+/* Background effects only. Layout remains untouched. */
+
+body::before {
+  background:
+    radial-gradient(
+      ellipse at 50% 50%,
+      rgba(255, 255, 255, calc(var(--beat-flash, 0) * 0.38)),
+      rgba(var(--cover-rgb), calc(0.48 + var(--beat-flash, 0) * 0.52)) 28%,
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse at 12% 85%,
+      rgba(180, 35, 255, calc(0.32 + var(--beat-flash, 0) * 0.58)),
+      transparent 62%
+    ),
+    radial-gradient(
+      ellipse at 88% 15%,
+      rgba(255, 35, 150, calc(0.28 + var(--beat-flash, 0) * 0.62)),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(55, 100, 255, calc(0.20 + var(--beat-flash, 0) * 0.55)),
+      transparent 68%
+    ) !important;
+  opacity: calc(0.55 + var(--beat-flash, 0) * 0.45) !important;
+  filter:
+    blur(22px)
+    brightness(calc(1.7 + var(--beat-flash, 0) * 5))
+    saturate(3) !important;
+  transition: none !important;
+}
+
+#album-backdrop::after {
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(255, 255, 255, calc(var(--beat-flash, 0) * 0.32)),
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse at 20% 80%,
+      rgba(var(--cover-rgb), calc(0.45 + var(--beat-flash, 0) * 0.5)),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse at 80% 20%,
+      rgba(190, 55, 255, calc(0.35 + var(--beat-flash, 0) * 0.5)),
+      transparent 68%
+    ) !important;
+  opacity: 1 !important;
+  mix-blend-mode: screen !important;
+  filter: saturate(2.5) brightness(1.8) !important;
+  transition: none !important;
+}

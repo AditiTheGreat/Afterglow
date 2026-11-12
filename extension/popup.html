@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Afterglow</title>
+  <style>
+    body {
+      width: 260px;
+      padding: 20px;
+      background: #100d19;
+      color: #f5eaff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    h2 {
+      letter-spacing: 4px;
+      color: #d6b9ef;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      border: 0;
+      border-radius: 9px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #start {
+      background: #c9a5f5;
+      color: #160d22;
+    }
+
+    #stop {
+      background: #30243e;
+      color: white;
+    }
+
+    #status {
+      color: #bba9ca;
+      font-size: 12px;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h2>AFTERGLOW</h2>
+  <p>Spotify Audio Engine</p>
+
+  <button id="start">START CAPTURE</button>
+  <button id="stop">STOP CAPTURE</button>
+
+  <div id="status">Waiting for Spotify...</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
