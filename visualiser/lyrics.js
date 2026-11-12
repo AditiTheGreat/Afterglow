@@ -203,7 +203,7 @@ function renderLyrics() {
 function getEstimatedProgress() {
   if (!playback.isPlaying) return playback.progressMs;
 
-  return playback.progressMs + (Date.now() - playback.updatedAt) + 1000;
+  return playback.progressMs + (performance.now() - playback.updatedAt) + 1000;
 }
 
 function syncLyrics() {
@@ -231,7 +231,7 @@ window.addEventListener("afterglow:track", event => {
   updateTrackUI(track);
 
   playback.progressMs = track.progressMs || 0;
-  playback.updatedAt = Date.now();
+  playback.updatedAt = track.sampledAt ?? performance.now();
   playback.isPlaying = Boolean(track.isPlaying);
 
   const trackId = track.id || `${track.title}-${track.artist}`;
