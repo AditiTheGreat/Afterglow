@@ -694,3 +694,18 @@ body::before {
     z-index: 8 !important;
   }
 }
+
+
+/* AFTERGLOW — stronger mobile equaliser response */
+@media (max-width: 760px) {
+  .equalizer {
+    height: 100px !important;
+    opacity: 1 !important;
+    filter: saturate(1.25) !important;
+  }
+
+  .equalizer .bar {
+    transition: height .055s linear !important;
+    box-shadow: 0 0 13px rgba(199, 148, 255, .75) !important;
+  }
+}

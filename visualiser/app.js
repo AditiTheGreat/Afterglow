@@ -248,9 +248,16 @@ function animate(time) {
     smoothFrequencies[i] += (target - smoothFrequencies[i]) * .35;
 
     const value = smoothFrequencies[i];
-    const height = Math.max(3, Math.min(56, value * .22));
+    const isMobile = window.innerWidth <= 760;
+
+    const height = isMobile
+      ? Math.max(3, Math.pow(Math.min(value * 2.4 / 255, 1), .72) * 88)
+      : Math.max(3, Math.min(56, value * .22));
+
     bars[i].style.height = `${height}px`;
-    bars[i].style.opacity = .55 + Math.min(value / 255, .45);
+    bars[i].style.opacity = isMobile
+      ? .75 + Math.min(value / 255, .25)
+      : .55 + Math.min(value / 255, .45);
   }
 
   level.textContent =
