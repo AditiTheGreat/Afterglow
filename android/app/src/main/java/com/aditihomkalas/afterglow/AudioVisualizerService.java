@@ -123,6 +123,7 @@ public class AudioVisualizerService extends Service {
 
                     Intent update = new Intent(ACTION_AUDIO);
                     update.setPackage(getPackageName());
+                    update.putExtra("type", "AUDIO_DATA");
                     update.putExtra("frequencies", bins);
                     update.putExtra("bass", bass);
                     update.putExtra("mids", mids);
