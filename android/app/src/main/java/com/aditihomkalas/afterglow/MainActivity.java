@@ -36,10 +36,9 @@ public class MainActivity extends Activity {
                 if (bins == null) return;
 
                 JSONArray values = new JSONArray();
-                for (float value : bins) values.put(value);
-
                 JSONObject data = new JSONObject();
                 try {
+                    for (float value : bins) values.put(value);
                     data.put("source", "AFTERGLOW");
                     data.put("type", "AUDIO_DATA");
                     data.put("frequencies", values);
