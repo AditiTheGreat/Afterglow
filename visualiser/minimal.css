@@ -709,3 +709,17 @@ body::before {
     box-shadow: 0 0 13px rgba(199, 148, 255, .75) !important;
   }
 }
+
+/* Stronger mobile beat response — desktop unaffected */
+@media (max-width: 760px) {
+  .equalizer {
+    height: 125px !important;
+    opacity: 1 !important;
+    filter: saturate(1.5) !important;
+  }
+
+  .equalizer .bar {
+    transition: height .04s linear !important;
+    box-shadow: 0 0 16px rgba(199, 148, 255, .9) !important;
+  }
+}
