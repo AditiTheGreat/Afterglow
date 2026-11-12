@@ -7,4 +7,6 @@
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowBackground">#080610</item>
     </style>
+
+    <style name="AfterglowSplashTheme" parent="@style/AfterglowTheme"/>
 </resources>

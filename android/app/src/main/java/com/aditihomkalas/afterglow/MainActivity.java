@@ -125,6 +125,13 @@ public class MainActivity extends Activity {
         home.setPadding(dp(28), dp(30), dp(28), dp(30));
         home.setBackgroundColor(Color.rgb(8, 6, 16));
 
+        ImageView logo = new ImageView(this);
+        logo.setImageResource(R.drawable.afterglow_mark);
+        logo.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        home.addView(logo, new LinearLayout.LayoutParams(dp(112), dp(112)));
+
+        addSpace(home, 14);
+
         TextView title = new TextView(this);
         title.setText("AFTERGLOW");
         title.setTextColor(Color.rgb(225, 190, 255));

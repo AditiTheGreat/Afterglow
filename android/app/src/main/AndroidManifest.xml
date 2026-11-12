@@ -10,7 +10,9 @@
     <application
         android:allowBackup="false"
         android:label="AFTERGLOW"
-        android:theme="@style/AfterglowTheme">
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@style/AfterglowSplashTheme">
         <activity
             android:name=".VisualizerTestActivity"
             android:exported="false"/>

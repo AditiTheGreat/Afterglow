@@ -1,0 +1,5 @@
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@drawable/afterglow_icon_background"/>
+    <foreground android:drawable="@drawable/afterglow_mark"/>
+    <monochrome android:drawable="@drawable/afterglow_mark"/>
+</adaptive-icon>
