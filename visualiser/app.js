@@ -248,17 +248,18 @@ function animate(time) {
     smoothFrequencies[i] += (target - smoothFrequencies[i]) * .35;
 
     const value = smoothFrequencies[i];
-    const isMobile = window.innerWidth <= 760;
+    const useStrongResponse =
+      window.innerWidth <= 760 || Boolean(document.fullscreenElement);
 
     const beatBoost = i < 20 ? 2.3 : i < 55 ? 1.5 : 1.15;
     const boostedValue = Math.min(255, value * beatBoost * 1.4);
 
-    const height = isMobile
+    const height = useStrongResponse
       ? Math.max(3, Math.pow(boostedValue / 255, .58) * 112)
       : Math.max(3, Math.min(56, value * .22));
 
     bars[i].style.height = `${height}px`;
-    bars[i].style.opacity = isMobile
+    bars[i].style.opacity = useStrongResponse
       ? .85 + Math.min(boostedValue / 255, .15)
       : .55 + Math.min(value / 255, .45);
   }
