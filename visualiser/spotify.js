@@ -120,6 +120,8 @@ async function getCurrentlyPlaying() {
     return;
   }
 
+  const requestStartedAt = performance.now();
+
   try {
     const response = await fetch(
       "https://api.spotify.com/v1/me/player/currently-playing",
@@ -132,6 +134,9 @@ async function getCurrentlyPlaying() {
     if (!response.ok) throw new Error(`Spotify API: ${response.status}`);
 
     const data = await response.json();
+    const responseReceivedAt = performance.now();
+    const sampledAt =
+      requestStartedAt + (responseReceivedAt - requestStartedAt) / 2;
     const track = data.item;
 
     if (!track) return;
@@ -150,6 +155,7 @@ async function getCurrentlyPlaying() {
         artwork: track.album.images?.[0]?.url || "",
         durationMs: track.duration_ms,
         progressMs: data.progress_ms || 0,
+        sampledAt,
         isPlaying: data.is_playing
       }
     }));
